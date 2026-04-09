@@ -1,4 +1,5 @@
-import depot, { type DepotTypeMap } from "../index";
+import depot from "../index";
+import type { DepotTypeMap } from "../index";
 
 /* ── Declare depot types via module augmentation ─────────────── */
 declare module "../index" {
@@ -43,10 +44,11 @@ console.log(`Path: ${depot.path("colors", "green")}`);
 const colors2 = depot.group("colors");
 console.log(`Same group: ${colors === colors2}`);
 
+// Demonstrate type map usage: list all declared types
+type AllTypes = keyof DepotTypeMap;
+const type_name: AllTypes = "color";
+console.log(`Type name: ${type_name}`);
+
 // These should cause type errors (uncomment to verify):
 // colors.register("bad", 123, "color"); // Error: number not assignable to string
 // sizes.register("bad", "text", "size"); // Error: string not assignable to number
-
-// Use DepotTypeMap for type safety (suppresses unused import warning)
-const _typeCheck: keyof DepotTypeMap = "color";
-void _typeCheck;

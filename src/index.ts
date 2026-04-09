@@ -79,6 +79,18 @@ interface Depot {
   path(group: string, entry: string): string;
 }
 
+function upsert<T>(
+  obj: { get: Record<string, T>; add(key: string, val: T): void; change(key: string, val: T): void },
+  key: string,
+  value: T,
+): void {
+  if (obj.get[key] !== undefined) {
+    obj.change(key, value);
+  } else {
+    obj.add(key, value);
+  }
+}
+
 function create_group(name: string, parent_path: string): DepotGroup {
   const owner = state.resw<
     DepotGroupEntries,
@@ -97,12 +109,7 @@ function create_group(name: string, parent_path: string): DepotGroup {
       value: DepotValueForType<T>,
       type: T,
     ): void {
-      const entry: DepotEntry<T> = { value, type };
-      if (owner.object.get[entry_path] !== undefined) {
-        owner.object.change(entry_path, entry as DepotEntry);
-      } else {
-        owner.object.add(entry_path, entry as DepotEntry);
-      }
+      upsert(owner.object, entry_path, { value, type } as DepotEntry);
     },
     unregister(entry_path: string): void {
       if (owner.object.get[entry_path] !== undefined) {
