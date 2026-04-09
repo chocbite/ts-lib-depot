@@ -31,13 +31,16 @@
     "upgrade": "npx npm-check-updates --target semver -u && npm install"
   },
   "devDependencies": {
+    "@chocbite/ts-supplement-eslint": "^1.0.0",
     "@vitest/browser-playwright": "^4.1.3",
     "eslint": "^10.2.0",
     "tsdown": "^0.21.7",
     "typescript": "^6.0.2",
     "typescript-eslint": "^8.58.1",
     "vite": "^8.0.7",
-    "vitest": "^4.1.3",
-    "@chocbite/ts-supplement-eslint": "^1.0.0"
+    "vitest": "^4.1.3"
+  },
+  "dependencies": {
+    "@chocbite/ts-lib-state": "^2.1.2"
   }
 }
