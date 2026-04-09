@@ -1,5 +1,5 @@
-import depot from "../index";
 import type { DepotTypeMap } from "../index";
+import depot from "../index";
 
 /* ── Declare depot types via module augmentation ─────────────── */
 declare module "../index" {
